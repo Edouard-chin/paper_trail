@@ -16,7 +16,6 @@ require "active_record"
 
 require "request_store"
 require "paper_trail/cleaner"
-require "paper_trail/compatibility"
 require "paper_trail/config"
 require "paper_trail/has_paper_trail"
 require "paper_trail/record_history"
@@ -145,8 +144,4 @@ if defined?(::Rails)
   end
 else
   require "paper_trail/frameworks/active_record"
-end
-
-if defined?(::ActiveRecord)
-  ::PaperTrail::Compatibility.check_activerecord(::ActiveRecord.gem_version)
 end

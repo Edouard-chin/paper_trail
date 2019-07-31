@@ -34,13 +34,12 @@ module PaperTrail
     # environment variable.
     def self.check_activerecord(ar_version)
       raise ::TypeError unless ar_version.instance_of?(::Gem::Version)
-      return if ::ENV["PT_SILENCE_AR_COMPAT_WARNING"].present?
       req = ::Gem::Requirement.new([ACTIVERECORD_GTE, ACTIVERECORD_LT])
       unless req.satisfied_by?(ar_version)
-        ::Kernel.warn(
+        Bundler.ui.warn(
           format(
             E_INCOMPATIBLE_AR,
-            ::PaperTrail.gem_version,
+            ::Gem::Version.new(VERSION::STRING),
             ar_version,
             req
           )
